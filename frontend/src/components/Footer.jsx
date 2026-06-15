@@ -1,4 +1,4 @@
-import { FileText, Github } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TOOLS, CATEGORIES } from '../constants/tools';
 

@@ -6,6 +6,12 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-15
+### Fixed
+- **Frontend:** Memperbaiki *blank white screen* yang disebabkan oleh *missing export* icon `Github` dari `lucide-react` di `Footer.jsx` yang membuat *build* Vite *crash*.
+- **Frontend:** Memperbaiki peringatan/sintaks *PostCSS* di `index.css` dengan menempatkan `@import` font Google di baris paling atas.
+- **Backend:** Menambahkan *env variable* `POPPLER_PATH` ke `.env.example` untuk konsistensi dengan implementasi konversi Poppler.
+
 ## [1.0.0] - 2026-06-15
 ### Added
 - **Initial Release:** Inisialisasi awal proyek iLovePDF Clone (Frontend Vite/React + Backend Node/Express).
