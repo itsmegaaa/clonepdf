@@ -12,6 +12,7 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Frontend:** Memperbaiki bug di mana file yang diunggah di satu *tool* masih terbawa ketika pengguna berpindah ke halaman *tool* lain. *State* kini otomatis di-*reset* setiap kali rute URL berubah.
 - **Frontend:** Memperbaiki bug pada `ToolLayout.jsx` di mana daftar file kustom (seperti pada *Merge PDF* dan *Organize PDF*) tidak muncul/tersembunyi karena properti `children` gagal di-*render*.
 - **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, `HTML to PDF`, dan `Organize PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
+- **Backend (LibreOffice):** Memperbaiki *error* konversi gagal (*Write Code: 16*) di fitur PDF to Word/PowerPoint/Excel dengan memaksa *backend* untuk selalu menggunakan format *Absolute Path* ketika mengirimkan perintah ke LibreOffice, mencegah konflik *directory resolution* di Windows.
 
 ### Changed
 - **Frontend & Backend:** Menyesuaikan nama file hasil pemrosesan (download) agar menggunakan **nama file asli yang diunggah**, bukan nama acak atau nama *hardcode* seperti `compressed.pdf`.
