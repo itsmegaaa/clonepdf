@@ -30,7 +30,7 @@ echo Memulai skrip setup PowerShell...
 echo.
 
 :: Eksekusi setup.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& '%~dp0scripts\setup.ps1'"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\setup.ps1"
 
 echo.
 echo ===================================================

@@ -1,11 +1,14 @@
-$ErrorActionPreference = "Stop"
+# Paksa TLS 1.2 untuk menghindari error Invoke-WebRequest dan choco
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $ProjectRoot = Split-Path -Parent $ScriptDir
 
 Write-Host "Memeriksa instalasi Chocolatey..." -ForegroundColor Cyan
 if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Host "Chocolatey belum terinstal. Sedang menginstal..." -ForegroundColor Yellow
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 } else {
     Write-Host "Chocolatey sudah terinstal." -ForegroundColor Green
 }
@@ -18,11 +21,15 @@ $PopplerDir = Join-Path $ProjectRoot "backend\poppler"
 if (!(Test-Path (Join-Path $PopplerDir "poppler-24.02.0\Library\bin\pdftoppm.exe"))) {
     Write-Host "Mengunduh Poppler v24.02.0..." -ForegroundColor Yellow
     $PopplerZip = Join-Path $ProjectRoot "backend\poppler.zip"
-    Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v24.02.0-0/Release-24.02.0-0.zip" -OutFile $PopplerZip
-    Write-Host "Mengekstrak Poppler..." -ForegroundColor Yellow
-    Expand-Archive -Path $PopplerZip -DestinationPath $PopplerDir -Force
-    Remove-Item $PopplerZip -Force
-    Write-Host "Poppler berhasil dipasang secara lokal!" -ForegroundColor Green
+    try {
+        Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v24.02.0-0/Release-24.02.0-0.zip" -OutFile $PopplerZip
+        Write-Host "Mengekstrak Poppler..." -ForegroundColor Yellow
+        Expand-Archive -Path $PopplerZip -DestinationPath $PopplerDir -Force
+        Remove-Item $PopplerZip -Force
+        Write-Host "Poppler berhasil dipasang secara lokal!" -ForegroundColor Green
+    } catch {
+        Write-Host "Gagal mengunduh Poppler: $($_.Exception.Message)" -ForegroundColor Red
+    }
 } else {
     Write-Host "Poppler sudah terpasang." -ForegroundColor Green
 }
@@ -42,6 +49,16 @@ if (!(Test-Path $FrontendEnv)) {
 }
 
 Write-Host "`nMenginstal Node Modules (Ini mungkin memakan waktu beberapa menit)..." -ForegroundColor Cyan
+
+# Refresh Environment Variables untuk memastikan npm dikenali jika NodeJS baru diinstall
+foreach($level in "Machine","User") {
+    [Environment]::GetEnvironmentVariables($level).GetEnumerator() | ForEach-Object {
+        if ($_.Key -eq 'Path') {
+            $env:Path += ";$($_.Value)"
+        }
+    }
+}
+
 Set-Location $ProjectRoot
 Write-Host ">> Menginstal root dependencies..." -ForegroundColor Yellow
 cmd /c "npm install"
