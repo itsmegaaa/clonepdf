@@ -14,11 +14,20 @@ const POPPLER_PATH = process.env.POPPLER_PATH || ''; // folder path where pdftop
  */
 exports.libreOfficeConvert = async (inputPath, outputDir, outFilter) => {
   const args = [
-    '--headless',
-    '--convert-to', outFilter,
-    '--outdir', outputDir,
-    inputPath
+    '--headless'
   ];
+
+  if (inputPath.toLowerCase().endsWith('.pdf')) {
+    if (outFilter.includes('docx')) {
+      args.push('--infilter=writer_pdf_import');
+    } else if (outFilter.includes('pptx')) {
+      args.push('--infilter=impress_pdf_import');
+    }
+    // Note: LibreOffice does not have a native calc_pdf_import for Excel
+  }
+
+  args.push('--convert-to', outFilter, '--outdir', outputDir, inputPath);
+
   await execa(LIBREOFFICE_PATH, args);
   // LibreOffice membuat file output di outdir dengan basename dari input
   const ext = outFilter.split(':')[0]; // e.g., 'pdf' or 'docx'
