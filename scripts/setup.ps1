@@ -50,14 +50,10 @@ if (!(Test-Path $FrontendEnv)) {
 
 Write-Host "`nMenginstal Node Modules (Ini mungkin memakan waktu beberapa menit)..." -ForegroundColor Cyan
 
-# Refresh Environment Variables untuk memastikan npm dikenali jika NodeJS baru diinstall
-foreach($level in "Machine","User") {
-    [Environment]::GetEnvironmentVariables($level).GetEnumerator() | ForEach-Object {
-        if ($_.Key -eq 'Path') {
-            $env:Path += ";$($_.Value)"
-        }
-    }
-}
+# Refresh Environment Variables secara aman tanpa menduplikasi
+$MachinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+$UserPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+$env:Path = "$MachinePath;$UserPath"
 
 Set-Location $ProjectRoot
 Write-Host ">> Menginstal root dependencies..." -ForegroundColor Yellow
