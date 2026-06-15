@@ -55,9 +55,7 @@ router.post('/convert/pdf-to-powerpoint', upload.single('file'), asyncHandler(as
   res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.pptx` });
 }));
 
-router.post('/convert/pdf-to-excel', upload.single('file'), asyncHandler(async (req, res) => {
-  throw new Error('Fitur PDF ke Excel tidak didukung secara lokal (LibreOffice tidak memiliki engine pembaca tabel PDF). Fitur ini biasanya membutuhkan API berbayar khusus.');
-}));
+
 
 router.post('/convert/word-to-pdf', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);

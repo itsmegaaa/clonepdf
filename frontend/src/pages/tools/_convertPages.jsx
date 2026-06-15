@@ -30,10 +30,7 @@ export const PdfToPowerPoint = makeConvertPage({
   title: 'PDF to PowerPoint', desc: 'Ubah PDF menjadi presentasi PowerPoint (.pptx).',
   accept: { 'application/pdf': ['.pdf'] }, endpoint: 'pdf-to-powerpoint', outputName: 'output.pptx', actionLabel: 'Convert ke PowerPoint',
 });
-export const PdfToExcel = makeConvertPage({
-  title: 'PDF to Excel', desc: 'Ubah PDF menjadi spreadsheet Excel (.xlsx).',
-  accept: { 'application/pdf': ['.pdf'] }, endpoint: 'pdf-to-excel', outputName: 'output.xlsx', actionLabel: 'Convert ke Excel',
-});
+
 export const WordToPdf = makeConvertPage({
   title: 'Word to PDF', desc: 'Ubah dokumen Word (.docx/.doc) menjadi PDF.',
   accept: { 'application/msword': ['.doc'], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'] },

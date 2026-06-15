@@ -103,17 +103,7 @@ export const TOOLS = [
     multiple: false,
     clientSide: false,
   },
-  {
-    id: "pdf-to-excel",
-    name: "PDF to Excel",
-    desc: "Ubah PDF menjadi spreadsheet Excel.",
-    icon: "📈",
-    category: "convert",
-    route: "/pdf-to-excel",
-    accept: { "application/pdf": [".pdf"] },
-    multiple: false,
-    clientSide: false,
-  },
+
   {
     id: "word-to-pdf",
     name: "Word to PDF",

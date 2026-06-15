@@ -12,7 +12,7 @@ const SplitPdf = lazy(() => import('./pages/tools/SplitPdf'));
 const CompressPdf = lazy(() => import('./pages/tools/CompressPdf'));
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord'));
 const PdfToPowerPoint = lazy(() => import('./pages/tools/PdfToPowerPoint'));
-const PdfToExcel = lazy(() => import('./pages/tools/PdfToExcel'));
+
 const WordToPdf = lazy(() => import('./pages/tools/WordToPdf'));
 const PowerPointToPdf = lazy(() => import('./pages/tools/PowerPointToPdf'));
 const ExcelToPdf = lazy(() => import('./pages/tools/ExcelToPdf'));
@@ -70,7 +70,7 @@ export default function App() {
               <Route path="/compress-pdf" element={<CompressPdf />} />
               <Route path="/pdf-to-word" element={<PdfToWord />} />
               <Route path="/pdf-to-powerpoint" element={<PdfToPowerPoint />} />
-              <Route path="/pdf-to-excel" element={<PdfToExcel />} />
+
               <Route path="/word-to-pdf" element={<WordToPdf />} />
               <Route path="/powerpoint-to-pdf" element={<PowerPointToPdf />} />
               <Route path="/excel-to-pdf" element={<ExcelToPdf />} />
