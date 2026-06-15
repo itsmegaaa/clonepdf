@@ -49,14 +49,13 @@ jobs:
           if not changelog_body:
               changelog_body = "Belum ada changelog."
 
-          changelog_section = f"""## Changelog
-
-{start_marker}
-{changelog_body}
-{end_marker}
-
-Full changelog: [CHANGELOG.md](./CHANGELOG.md)
-"""
+          changelog_section = (
+              "## Changelog\n\n"
+              f"{start_marker}\n"
+              f"{changelog_body}\n"
+              f"{end_marker}\n\n"
+              "Full changelog: [CHANGELOG.md](./CHANGELOG.md)\n"
+          )
 
           if start_marker not in readme or end_marker not in readme:
               readme = readme.rstrip() + "\n\n" + changelog_section + "\n"
