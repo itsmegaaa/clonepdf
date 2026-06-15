@@ -17,7 +17,7 @@ fs.ensureDirSync(UPLOAD_DIR);
 fs.ensureDirSync(OUTPUT_DIR);
 
 // ── Middlewares ────────────────────────────────────────────────────
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
