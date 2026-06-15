@@ -50,22 +50,31 @@ if (!(Test-Path $FrontendEnv)) {
 
 Write-Host "`nMenginstal Node Modules (Ini mungkin memakan waktu beberapa menit)..." -ForegroundColor Cyan
 
-# Refresh Environment Variables secara aman tanpa menduplikasi
-$MachinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
-$UserPath = [Environment]::GetEnvironmentVariable('Path', 'User')
-$env:Path = "$MachinePath;$UserPath"
+# Fungsi aman untuk menjalankan NPM tanpa cmd /c yang rentan crash
+function Run-NpmInstall {
+    $NpmPath = "$env:ProgramFiles\nodejs\npm.cmd"
+    if (Get-Command npm -ErrorAction SilentlyContinue) {
+        Write-Host "Menjalankan npm install (via env)..." -ForegroundColor DarkGray
+        npm install
+    } elseif (Test-Path $NpmPath) {
+        Write-Host "Menjalankan npm install (via absolute path)..." -ForegroundColor DarkGray
+        & $NpmPath install
+    } else {
+        Write-Host "Peringatan: NPM tidak ditemukan di sistem. Harap install NodeJS secara manual." -ForegroundColor Red
+    }
+}
 
 Set-Location $ProjectRoot
 Write-Host ">> Menginstal root dependencies..." -ForegroundColor Yellow
-cmd /c "npm install"
+Run-NpmInstall
 
 Set-Location (Join-Path $ProjectRoot "frontend")
 Write-Host ">> Menginstal frontend dependencies..." -ForegroundColor Yellow
-cmd /c "npm install"
+Run-NpmInstall
 
 Set-Location (Join-Path $ProjectRoot "backend")
 Write-Host ">> Menginstal backend dependencies..." -ForegroundColor Yellow
-cmd /c "npm install"
+Run-NpmInstall
 
 Set-Location $ProjectRoot
 Write-Host "`n========================================================" -ForegroundColor Green
