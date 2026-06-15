@@ -4,8 +4,10 @@
 
 PDFVault is a comprehensive web application for managing and manipulating PDF files. It provides a wide range of features such as merging, compressing, organizing, and converting PDFs directly in your browser. 
 
-> **🔒 Looking for an offline, self-hosted LAN version?**
-> If you need to run this application entirely offline within your company's local network (LAN) for maximum privacy without any internet connection, check out the [PDFVault LAN Version](https://github.com/itsmegaaa/pdfLan).
+> **⚠️ WARNING: VERSI INI LEBIH RIBET! (More Complicated Setup)**
+> Karena ini adalah versi Publik/Cloud, setup lokalnya jauh lebih ribet (kamu harus jalankan *frontend* & *backend* manual tanpa script otomatis). 
+> Kalau kamu butuh versi yang gampang diinstall (tinggal double-click) dan ditujukan untuk berjalan 100% offline di Local Area Network (LAN), sangat disarankan pakai versi LAN-nya saja di sini:
+> 👉 **[PDFVault LAN Version](https://github.com/itsmegaaa/pdfLan)**
 
 ## ✨ Features
 
@@ -14,6 +16,25 @@ PDFVault is a comprehensive web application for managing and manipulating PDF fi
 - **Edit PDF**: Add text, images, and annotations.
 - **Security**: Protect with passwords, unlock PDFs, redact sensitive information, and add watermarks.
 - **Privacy-First Processing**: Many core features are processed directly in your browser using `pdf-lib` without sending files to the backend.
+
+## 🛠️ Prerequisites
+
+To run this application, your machine requires the following tools to be installed.
+
+**💡 Easiest Way (Using Chocolatey - Recommended):**
+Open PowerShell as Administrator and run this one-liner to install everything you need:
+```powershell
+choco install nodejs pm2 libreoffice ghostscript qpdf poppler tesseract chromium -y
+```
+
+**Alternative Way (Using Winget - Windows 10/11 built-in):**
+Open PowerShell and run:
+```powershell
+winget install OpenJS.NodeJS -e
+winget install TheDocumentFoundation.LibreOffice -e
+winget install ArtifexSoftware.GhostScript -e
+```
+*(Note: You will still need to manually install qpdf, poppler, tesseract, and chromium if you use winget).*
 
 ## 🚀 Quick Start
 
@@ -49,12 +70,6 @@ To run PDFVault locally for development:
 
 4. **Access the Application:**
    Open your browser and navigate to `http://localhost:5173`.
-
-## 🛠️ Technology Stack
-
-- **Frontend:** React 18, Vite, Tailwind CSS, Zustand, pdf-lib
-- **Backend:** Node.js, Express, Multer (for handling file uploads)
-- **Utilities:** Ghostscript, Poppler, LibreOffice (for advanced backend conversions)
 
 ## 📝 License
 
