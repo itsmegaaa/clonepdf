@@ -1,158 +1,115 @@
-# PDF Editor 📄🚀
+# PDFVault (Public/Cloud Version)
 
-Sebuah kloning *full-stack* open-source dari platform manipulasi PDF populer (iLovePDF). Proyek ini sepenuhnya beroperasi secara lokal, gratis 100%, tanpa *paywall*, tanpa *API* berbayar, dan yang paling penting: **Privasi Terjamin** (tidak ada data atau dokumen Anda yang dikirim ke *cloud*).
+*A modern, privacy-focused PDF processing suite.*
 
-Aplikasi ini dibagi menjadi eksekusi *Client-Side* (diproses langsung di browser menggunakan WebAssembly/JS) dan *Backend-Side* (menjalankan command-line tools sistem secara efisien).
+PDFVault is a comprehensive web application for managing and manipulating PDF files. It provides a wide range of features such as merging, compressing, organizing, and converting PDFs directly in your browser. 
+
+---
+### ☕ Support / Donate
+
+<a href="https://tako.id/itsmega">
+  <img align="left" src="docs/tako_qr.png" width="200" alt="Tako QR Code">
+</a>
+
+<br>
+
+If you find this project helpful, saves you time, or keeps your company's documents secure, please consider supporting the development!  
+👉 **[Donate & Support via Tako.id](https://tako.id/itsmega)**
+
+<br clear="left"/>
 
 ---
 
-## ✨ Fitur (28 Tools)
+> **⚠️ WARNING: VERSI INI LEBIH RIBET! (More Complicated Setup)**
+> Karena ini adalah versi Publik/Cloud, setup lokalnya jauh lebih ribet (kamu harus jalankan *frontend* & *backend* manual tanpa script otomatis). 
+> Kalau kamu butuh versi yang gampang diinstall (tinggal double-click) dan ditujukan untuk berjalan 100% offline di Local Area Network (LAN), sangat disarankan pakai versi LAN-nya saja di sini:
+> 👉 **[PDFVault LAN Version](https://github.com/itsmegaaa/pdfLan)**
 
-Aplikasi ini mendukung 28 alat manipulasi PDF yang dikategorikan sebagai berikut:
+## ✨ Features
 
-### ⚡ Client-Side Tools (Diproses langsung di browser)
-Cepat, tanpa delay upload, dan aman. Menggunakan `pdf-lib` dan `pdfjs-dist`.
-- **Organize:** Merge PDF, Split PDF, Organize (Reorder/Delete), Rotate PDF.
-- **Edit & Manipulate:** Watermark, Page Numbers, Redact, Crop, PDF Forms.
-- **Image / Utility:** JPG to PDF, Sign PDF.
+PDFVault is packed with powerful, enterprise-grade tools that process your files securely.
 
-### ⚙️ Backend Tools (Membutuhkan Server Lokal)
-Diproses menggunakan *Local System Binaries* seperti LibreOffice, Ghostscript, dsb.
-- **Convert to PDF:** Word to PDF, PowerPoint to PDF, Excel to PDF, HTML to PDF, PDF to PDF/A.
-- **Convert from PDF:** PDF to Word, PDF to PowerPoint, PDF to JPG.
-- **Optimize & Security:** Compress PDF, Unlock PDF, Protect PDF, Repair PDF.
-- **Advanced:** OCR PDF (Tesseract), Compare PDF.
+### 🛡️ Core Advantages
+- **Privacy Focused**: 100% of the processing happens on your local machine or LAN. Documents are NEVER uploaded to an external server. Your data stays yours.
+- **Auto Cleanup**: Temporary files are aggressively and automatically deleted from the server within milliseconds after processing.
+- **Smart Concurrency Limit**: Built-in queue system ensures the server never freezes, even if multiple users process files at the exact same time.
 
----
+### 📄 Organize & Edit PDF
+- **Visual Page Builder**: A drag-and-drop interface to easily rearrange, delete, and organize pages.
+- **Merge PDF**: Combine multiple PDFs into a single file with custom ordering.
+- **Split PDF**: Visually select pages to split or extract from a large document.
+- **Rotate PDF**: Fix upside-down pages with a single click.
 
-## 🛠️ Tech Stack
+### 🔄 Convert FROM PDF
+- **PDF to Word/PPT/Excel**: Convert PDFs back into editable Office documents with high accuracy (powered by LibreOffice).
+- **PDF to JPG**: Extract high-quality images from every page of your PDF (powered by Poppler).
+- **PDF to PDF/A**: Convert your documents into the standard format for long-term archiving.
 
-**Frontend:**
-- React 18 + Vite
-- Tailwind CSS v3
-- Zustand (State Management)
-- Lucide React (Icons)
-- dnd-kit (Drag and Drop UI)
-- pdf-lib & pdfjs-dist
+### 🔁 Convert TO PDF
+- **Word/PPT/Excel to PDF**: Turn your Office documents into universally readable PDFs.
+- **Image to PDF**: Convert JPG, PNG, and other image formats into a single PDF document.
+- **HTML to PDF**: Capture webpages perfectly into PDF format (powered by Chromium/Puppeteer).
 
-**Backend:**
-- Node.js + Express
-- Multer (File Uploads)
-- Node-cron (Auto Cleanup `tmp/` files)
-- Execa (Child process runner)
+### 🔒 Security & Optimization
+- **Compress PDF**: Dramatically reduce the file size of your PDFs without losing quality (powered by Ghostscript).
+- **Protect PDF**: Encrypt your PDFs with strong passwords and restrict permissions (e.g., disable printing or copying).
+- **Unlock PDF**: Remove passwords and security restrictions from PDFs you own (powered by QPDF).
 
-**System Binaries (Backend Requirements):**
-- **LibreOffice** (Konversi Office ke PDF dan sebaliknya)
-- **Ghostscript** (Kompresi PDF, PDF/A)
-- **Poppler** (PDF to JPG via `pdftoppm`)
-- **QPDF** (Enkripsi, Dekripsi, Perbaikan PDF)
-- **Tesseract OCR** (Pemindaian teks dari PDF/Gambar)
-- **Puppeteer / Chromium** (HTML to PDF)
+## 🛠️ Prerequisites
 
----
+To run this application, your machine requires the following tools to be installed.
 
-## 🚀 Instalasi & Persiapan Lokal
-
-### 1. Prasyarat Sistem
-Pastikan Node.js (minimal v20) sudah terinstall. Anda juga WAJIB menginstal dependensi sistem operasi berikut:
-
-**Windows (via Chocolatey):**
+**💡 Easiest Way (Using Chocolatey - Recommended):**
+Open PowerShell as Administrator and run this one-liner to install everything you need:
 ```powershell
-choco install libreoffice ghostscript qpdf poppler tesseract chromium -y
+choco install nodejs pm2 libreoffice ghostscript qpdf poppler tesseract chromium -y
 ```
 
-**macOS (via Homebrew):**
-```bash
-brew install libreoffice ghostscript qpdf poppler tesseract tesseract-lang chromium
+**Alternative Way (Using Winget - Windows 10/11 built-in):**
+Open PowerShell and run:
+```powershell
+winget install OpenJS.NodeJS -e
+winget install TheDocumentFoundation.LibreOffice -e
+winget install ArtifexSoftware.GhostScript -e
 ```
+*(Note: You will still need to manually install qpdf, poppler, tesseract, and chromium if you use winget).*
 
-**Ubuntu / Debian / WSL:**
-```bash
-sudo apt-get update && sudo apt-get install -y libreoffice ghostscript qpdf poppler-utils tesseract-ocr tesseract-ocr-ind tesseract-ocr-eng chromium-browser
-```
+## 🚀 Quick Start
 
-### 2. Kloning Repository
-```bash
-git clone https://github.com/username/ilovepdf-clone.git
-cd ilovepdf-clone
-```
+To run PDFVault locally for development:
 
-### 3. Install NPM Packages
-```bash
-# Install frontend, backend, dan concurrently di root
-npm install
-cd frontend && npm install
-cd ../backend && npm install
-cd ..
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/itsmegaaa/clonepdf.git
+   cd clonepdf
+   ```
 
-### 4. Konfigurasi Environment (ENV)
-Buat file `.env` di dalam folder `frontend` dan `backend`.
+2. **Install dependencies:**
+   You will need to install dependencies for both the frontend and backend.
+   ```bash
+   # Install root dependencies
+   npm install
 
-**Di dalam folder `backend/`:**
-```bash
-cp backend/.env.example backend/.env
-```
-*(Buka file `backend/.env` dan pastikan konfigurasi path binary (seperti `LIBREOFFICE_PATH`, `GHOSTSCRIPT_PATH`, dsb) mengarah ke lokasi executable instalasi di sistem Anda, terutama jika Anda menggunakan Windows).*
+   # Install frontend dependencies
+   cd frontend
+   npm install
 
-**Di dalam folder `frontend/`:**
-Buat file `frontend/.env` dan isi dengan:
-```env
-VITE_API_BASE_URL=http://localhost:3001/api
-```
+   # Install backend dependencies
+   cd ../backend
+   npm install
+   cd ..
+   ```
 
-### 5. Menjalankan Aplikasi
-Kami telah mengonfigurasi `concurrently` di root proyek untuk menjalankan Frontend dan Backend secara bersamaan hanya dengan 1 perintah:
+3. **Start the Development Server:**
+   Run the following command from the root directory to start both the React frontend and Express backend simultaneously:
+   ```bash
+   npm start
+   ```
 
-```bash
-npm start
-```
+4. **Access the Application:**
+   Open your browser and navigate to `http://localhost:5173`.
 
-- Frontend akan berjalan di: `http://localhost:5173` (Atau 5174 dsb jika port terpakai)
-- Backend API akan berjalan di: `http://localhost:3001`
 
-Buka browser Anda dan kunjungi URL frontend untuk mulai menggunakan! 🎉
+## 📝 License
 
----
-
-## 🧹 Auto-Cleanup
-Untuk menghindari file sementara yang menumpuk di memori/disk lokal Anda, backend dilengkapi dengan skrip **Cron Job** (`node-cron`). Skrip ini berjalan secara otomatis setiap 15 menit dan menghapus semua file di `backend/tmp/uploads` dan `backend/tmp/outputs` yang berumur lebih dari 30 menit.
-
-## Changelog
-
-<!-- CHANGELOG:START -->
-Semua perubahan yang signifikan pada proyek ini akan didokumentasikan di file ini.
-
-Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini menganut [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-## [1.0.2] - 2026-06-15
-### Fixed
-- **Backend:** Memperbaiki *error* CORS secara permanen di `index.js` dengan mengubah `app.use(cors())` agar mengizinkan semua *origin* secara mutlak selama pengembangan. Ini mencegah *error* akibat *cache* variabel `CORS_ORIGIN` dari sistem.
-- **Frontend:** Memperbaiki bug di mana file yang diunggah di satu *tool* masih terbawa ketika pengguna berpindah ke halaman *tool* lain. *State* kini otomatis di-*reset* setiap kali rute URL berubah.
-- **Frontend:** Memperbaiki bug pada `ToolLayout.jsx` di mana daftar file kustom (seperti pada *Merge PDF* dan *Organize PDF*) tidak muncul/tersembunyi karena properti `children` gagal di-*render*.
-- **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, `HTML to PDF`, dan `Organize PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
-- **Backend (LibreOffice):** Memperbaiki *error* konversi gagal (*Write Code: 16*) di fitur PDF to Word/PowerPoint/Excel dengan memaksa *backend* untuk selalu menggunakan format *Absolute Path* ketika mengirimkan perintah ke LibreOffice, mencegah konflik *directory resolution* di Windows.
-
-### Changed
-- **Frontend & Backend:** Menyesuaikan nama file hasil pemrosesan (download) agar menggunakan **nama file asli yang diunggah**, bukan nama acak atau nama *hardcode* seperti `compressed.pdf`.
-- **Frontend (Rotate PDF):** Mendesain ulang total UI halaman **Rotate PDF**. Pengguna kini bisa melihat *thumbnail* dari setiap halaman PDF dan dapat memutarnya secara individual ke kiri/kanan, atau memutar seluruh halaman sekaligus (mirip dengan UX Organize PDF).
-- **Frontend (Edit PDF):** Mengubah halaman `Edit PDF` (yang semula hanya *placeholder*) menjadi **Visual Page Builder**. Fitur ini menggabungkan kemampuan *Merge* dan *Organize* dengan mendukung *multi-file upload*, di mana pengguna bisa mencampur, menyusun ulang, dan menghapus halaman dari berbagai sumber dokumen PDF yang berbeda melalui antarmuka *drag-and-drop*.
-
-## [1.0.0] - 2026-06-15
-### Added
-- **Initial Release:** Inisialisasi awal proyek iLovePDF Clone (Frontend Vite/React + Backend Node/Express).
-- **Client-Side Tools (Phase 1):** Fitur manipulasi PDF 100% di browser via `pdf-lib` (Merge, Split, Rotate, Watermark, Redact, Sign, Crop, dll).
-- **Backend Tools (Phase 2):** Implementasi konversi dan kompresi tingkat lanjut via *local system binaries* (Ghostscript, LibreOffice, Poppler, QPDF, Puppeteer, Tesseract).
-- **Architecture:** Cron job untuk *auto-cleanup* file di `tmp/` setiap 15 menit.
-- **Workflow:** Script `concurrently` untuk menjalankan frontend dan backend via 1 command (`npm start`).
-- **Setup:** File konfigurasi `.env`, `.gitignore`, dan konfigurasi UI Tailwind (dark mode).
-<!-- CHANGELOG:END -->
-
-Full changelog: [CHANGELOG.md](./CHANGELOG.md)
-
----
-
-## 📜 Lisensi
-Proyek ini bersifat *Open-Source* dan dibuat sepenuhnya untuk tujuan edukasi. Jangan ragu untuk me-remix, mengubah, atau mengembangkannya secara bebas.
+This project is licensed under the [Apache License 2.0](LICENSE).
