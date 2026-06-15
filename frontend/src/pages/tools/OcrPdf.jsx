@@ -14,7 +14,8 @@ export default function OcrPdf() {
       const res = await apiOcr(files[0], lang);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || files[0].name });
+      const finalFilename = filename || files[0].name;
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}?filename=${encodeURIComponent(finalFilename)}`, filename: finalFilename });
     } catch (err) {
       setError(err.message || 'Gagal menjalankan OCR. Pastikan Tesseract terinstall.');
     }

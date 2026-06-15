@@ -13,7 +13,8 @@ function makeConvertPage({ title, desc, accept, endpoint, outputName, actionLabe
         const res = await apiConvert(endpoint, files[0]);
         setProgress(90);
         const { fileId, filename } = res.data;
-        setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || outputName });
+        const finalFilename = filename || outputName;
+        setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}?filename=${encodeURIComponent(finalFilename)}`, filename: finalFilename });
       } catch (err) {
         setError(err.message || 'Gagal memproses. Pastikan backend & LibreOffice berjalan.');
       }

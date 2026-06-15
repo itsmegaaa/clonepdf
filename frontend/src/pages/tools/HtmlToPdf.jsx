@@ -20,7 +20,8 @@ export default function HtmlToPdf() {
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
       setProgress(90);
-      setResult({ url: `${apiBase}/download/${data.fileId}`, filename: data.filename || 'page.pdf' });
+      const finalFilename = data.filename || 'page.pdf';
+      setResult({ url: `${apiBase}/download/${data.fileId}?filename=${encodeURIComponent(finalFilename)}`, filename: finalFilename });
     } catch (err) {
       setError(err.message || 'Gagal mengkonversi HTML. Pastikan Puppeteer berjalan.');
     }

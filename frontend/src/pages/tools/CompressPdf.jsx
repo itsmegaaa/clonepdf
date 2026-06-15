@@ -16,7 +16,7 @@ export default function CompressPdf() {
       const res = await apiCompress(files[0], level);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename });
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}?filename=${encodeURIComponent(filename)}`, filename });
     } catch (err) {
       setError(err.message || 'Gagal mengompresi PDF. Pastikan backend berjalan.');
     }

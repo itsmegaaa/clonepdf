@@ -171,6 +171,7 @@ router.post('/convert/pdf-to-jpg', upload.single('file'), asyncHandler(async (re
 // ── DOWNLOAD ROUTE ─────────────────────────────────────────────────
 router.get('/download/:fileId', (req, res) => {
   const { fileId } = req.params;
+  const { filename } = req.query;
   const safeFileId = path.basename(fileId); // cegah directory traversal
   const filePath = path.join(OUTPUT_DIR, safeFileId);
   
@@ -178,7 +179,11 @@ router.get('/download/:fileId', (req, res) => {
     return res.status(404).send('File tidak ditemukan atau sudah expired.');
   }
   
-  res.download(filePath);
+  if (filename) {
+    res.download(filePath, filename);
+  } else {
+    res.download(filePath);
+  }
 });
 
 module.exports = router;

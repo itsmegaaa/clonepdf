@@ -11,7 +11,8 @@ export default function RepairPdf() {
       const res = await apiRepair(files[0]);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || files[0].name });
+      const finalFilename = filename || files[0].name;
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}?filename=${encodeURIComponent(finalFilename)}`, filename: finalFilename });
     } catch (err) {
       setError(err.message || 'Gagal memperbaiki PDF. Pastikan backend berjalan.');
     }

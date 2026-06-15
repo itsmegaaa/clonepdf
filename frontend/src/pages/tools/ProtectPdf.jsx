@@ -17,7 +17,8 @@ export default function ProtectPdf() {
       const res = await apiProtect(files[0], userPass, ownerPass || userPass, permissions);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || files[0].name });
+      const finalFilename = filename || files[0].name;
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}?filename=${encodeURIComponent(finalFilename)}`, filename: finalFilename });
     } catch (err) {
       setError(err.message || 'Gagal mengenkripsi PDF. Pastikan backend berjalan.');
     }
