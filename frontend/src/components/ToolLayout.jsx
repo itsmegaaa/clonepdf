@@ -27,6 +27,7 @@ export default function ToolLayout({
   actionLabel = 'Proses',
   options,
   showFileList = true,
+  children,
 }) {
   const { files, isProcessing, progress, result, error, setFiles, removeFile, reset } = useToolStore();
 
@@ -119,6 +120,9 @@ export default function ToolLayout({
         files={showFileList ? files : []}
         onRemove={removeFile}
       />
+
+      {/* Custom children (e.g., custom file lists) */}
+      {children}
 
       {/* Options slot */}
       {files.length > 0 && options && (
