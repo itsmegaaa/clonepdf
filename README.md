@@ -19,7 +19,7 @@ Cepat, tanpa delay upload, dan aman. Menggunakan `pdf-lib` dan `pdfjs-dist`.
 ### ⚙️ Backend Tools (Membutuhkan Server Lokal)
 Diproses menggunakan *Local System Binaries* seperti LibreOffice, Ghostscript, dsb.
 - **Convert to PDF:** Word to PDF, PowerPoint to PDF, Excel to PDF, HTML to PDF, PDF to PDF/A.
-- **Convert from PDF:** PDF to Word, PDF to PowerPoint, PDF to Excel, PDF to JPG.
+- **Convert from PDF:** PDF to Word, PDF to PowerPoint, PDF to JPG.
 - **Optimize & Security:** Compress PDF, Unlock PDF, Protect PDF, Repair PDF.
 - **Advanced:** OCR PDF (Tesseract), Compare PDF.
 
