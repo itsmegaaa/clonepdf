@@ -56,11 +56,7 @@ router.post('/convert/pdf-to-powerpoint', upload.single('file'), asyncHandler(as
 }));
 
 router.post('/convert/pdf-to-excel', upload.single('file'), asyncHandler(async (req, res) => {
-  const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.xlsx`);
-  const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'xlsx:Calc MS Excel 2007 XML');
-  await fs.rename(finalFile, outFile);
-  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
-  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.xlsx` });
+  throw new Error('Fitur PDF ke Excel tidak didukung secara lokal (LibreOffice tidak memiliki engine pembaca tabel PDF). Fitur ini biasanya membutuhkan API berbayar khusus.');
 }));
 
 router.post('/convert/word-to-pdf', upload.single('file'), asyncHandler(async (req, res) => {
