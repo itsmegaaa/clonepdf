@@ -14,6 +14,7 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, `HTML to PDF`, dan `Organize PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
 
 ### Changed
+- **Frontend & Backend:** Menyesuaikan nama file hasil pemrosesan (download) agar menggunakan **nama file asli yang diunggah**, bukan nama acak atau nama *hardcode* seperti `compressed.pdf`.
 - **Frontend (Rotate PDF):** Mendesain ulang total UI halaman **Rotate PDF**. Pengguna kini bisa melihat *thumbnail* dari setiap halaman PDF dan dapat memutarnya secara individual ke kiri/kanan, atau memutar seluruh halaman sekaligus (mirip dengan UX Organize PDF).
 
 ## [1.0.1] - 2026-06-15
