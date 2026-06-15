@@ -19,7 +19,6 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Frontend (Rotate PDF):** Mendesain ulang total UI halaman **Rotate PDF**. Pengguna kini bisa melihat *thumbnail* dari setiap halaman PDF dan dapat memutarnya secara individual ke kiri/kanan, atau memutar seluruh halaman sekaligus (mirip dengan UX Organize PDF).
 - **Frontend (Edit PDF):** Mengubah halaman `Edit PDF` (yang semula hanya *placeholder*) menjadi **Visual Page Builder**. Fitur ini menggabungkan kemampuan *Merge* dan *Organize* dengan mendukung *multi-file upload*, di mana pengguna bisa mencampur, menyusun ulang, dan menghapus halaman dari berbagai sumber dokumen PDF yang berbeda melalui antarmuka *drag-and-drop*.
 
-
 ## [1.0.1] - 2026-06-15
 ### Fixed
 - **Frontend:** Memperbaiki *blank white screen* yang disebabkan oleh *missing export* icon `Github` dari `lucide-react` di `Footer.jsx` yang membuat *build* Vite *crash*.
