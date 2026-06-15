@@ -17,9 +17,11 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - **Frontend & Backend:** Menyesuaikan nama file hasil pemrosesan (download) agar menggunakan **nama file asli yang diunggah**, bukan nama acak atau nama *hardcode* seperti `compressed.pdf`.
 - **Frontend (Rotate PDF):** Mendesain ulang total UI halaman **Rotate PDF**. Pengguna kini bisa melihat *thumbnail* dari setiap halaman PDF dan dapat memutarnya secara individual ke kiri/kanan, atau memutar seluruh halaman sekaligus (mirip dengan UX Organize PDF).
+- **Frontend (Edit PDF):** Mengubah halaman `Edit PDF` (yang semula hanya *placeholder*) menjadi **Visual Page Builder**. Fitur ini menggabungkan kemampuan *Merge* dan *Organize* dengan mendukung *multi-file upload*, di mana pengguna bisa mencampur, menyusun ulang, dan menghapus halaman dari berbagai sumber dokumen PDF yang berbeda melalui antarmuka *drag-and-drop*.
 
 ### Removed
 - **Frontend & Backend:** Menghapus fitur **PDF to Excel** sepenuhnya karena LibreOffice lokal tidak memiliki kemampuan *native* untuk mengekstrak tabel PDF (*calc_pdf_import* tidak tersedia). Keputusan ini diambil untuk menghindari error/crash di sisi *backend*.
+- **Frontend:** Menghapus fitur **Scan to PDF** dari menu karena dinilai kurang praktis jika digunakan melalui *webcam* PC/Laptop.
 
 ## [1.0.1] - 2026-06-15
 ### Fixed

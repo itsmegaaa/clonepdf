@@ -260,17 +260,7 @@ export const TOOLS = [
     multiple: false,
     clientSide: true,
   },
-  {
-    id: "scan-to-pdf",
-    name: "Scan to PDF",
-    desc: "Scan dokumen dari kamera menjadi PDF.",
-    icon: "📷",
-    category: "edit",
-    route: "/scan-to-pdf",
-    accept: null,
-    multiple: false,
-    clientSide: true,
-  },
+
   {
     id: "compare-pdf",
     name: "Compare PDF",

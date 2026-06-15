@@ -29,7 +29,7 @@ const OrganizePdf = lazy(() => import('./pages/tools/OrganizePdf'));
 const PdfToPdfa = lazy(() => import('./pages/tools/PdfToPdfa'));
 const RepairPdf = lazy(() => import('./pages/tools/RepairPdf'));
 const PageNumbers = lazy(() => import('./pages/tools/PageNumbers'));
-const ScanToPdf = lazy(() => import('./pages/tools/ScanToPdf'));
+
 const OcrPdf = lazy(() => import('./pages/tools/OcrPdf'));
 const ComparePdf = lazy(() => import('./pages/tools/ComparePdf'));
 const RedactPdf = lazy(() => import('./pages/tools/RedactPdf'));
@@ -87,7 +87,7 @@ export default function App() {
               <Route path="/pdf-to-pdfa" element={<PdfToPdfa />} />
               <Route path="/repair-pdf" element={<RepairPdf />} />
               <Route path="/page-numbers" element={<PageNumbers />} />
-              <Route path="/scan-to-pdf" element={<ScanToPdf />} />
+
               <Route path="/ocr-pdf" element={<OcrPdf />} />
               <Route path="/compare-pdf" element={<ComparePdf />} />
               <Route path="/redact-pdf" element={<RedactPdf />} />

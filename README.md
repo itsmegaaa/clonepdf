@@ -14,7 +14,7 @@ Aplikasi ini mendukung 28 alat manipulasi PDF yang dikategorikan sebagai berikut
 Cepat, tanpa delay upload, dan aman. Menggunakan `pdf-lib` dan `pdfjs-dist`.
 - **Organize:** Merge PDF, Split PDF, Organize (Reorder/Delete), Rotate PDF.
 - **Edit & Manipulate:** Watermark, Page Numbers, Redact, Crop, PDF Forms.
-- **Image / Utility:** JPG to PDF, Sign PDF, Scan to PDF.
+- **Image / Utility:** JPG to PDF, Sign PDF.
 
 ### ⚙️ Backend Tools (Membutuhkan Server Lokal)
 Diproses menggunakan *Local System Binaries* seperti LibreOffice, Ghostscript, dsb.
