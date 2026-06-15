@@ -38,3 +38,6 @@ backend/tmp/outputs/*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local Binaries
+backend/poppler/
