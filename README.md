@@ -118,6 +118,14 @@ Buka browser Anda dan kunjungi URL frontend untuk mulai menggunakan! 🎉
 ## 🧹 Auto-Cleanup
 Untuk menghindari file sementara yang menumpuk di memori/disk lokal Anda, backend dilengkapi dengan skrip **Cron Job** (`node-cron`). Skrip ini berjalan secara otomatis setiap 15 menit dan menghapus semua file di `backend/tmp/uploads` dan `backend/tmp/outputs` yang berumur lebih dari 30 menit.
 
+## Changelog
+
+<!-- CHANGELOG:START -->
+Belum ada changelog.
+<!-- CHANGELOG:END -->
+
+Full changelog: [CHANGELOG.md](./CHANGELOG.md)
+
 ---
 
 ## 📜 Lisensi

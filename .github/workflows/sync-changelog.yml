@@ -1,0 +1,82 @@
+name: Sync Changelog to README
+
+on:
+  push:
+    paths:
+      - "CHANGELOG.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update README changelog section
+        run: |
+          python3 << 'PY'
+          from pathlib import Path
+
+          readme_path = Path("README.md")
+          changelog_path = Path("CHANGELOG.md")
+
+          start_marker = "<!-- CHANGELOG:START -->"
+          end_marker = "<!-- CHANGELOG:END -->"
+
+          if not readme_path.exists():
+              readme_path.write_text("# Project\n\n", encoding="utf-8")
+
+          if not changelog_path.exists():
+              changelog_path.write_text(
+                  "# Changelog\n\n## Unreleased\n\n### Added\n- Initial changelog setup.\n",
+                  encoding="utf-8"
+              )
+
+          readme = readme_path.read_text(encoding="utf-8")
+          changelog = changelog_path.read_text(encoding="utf-8")
+
+          lines = changelog.splitlines()
+          if lines and lines[0].strip().lower() == "# changelog":
+              changelog_body = "\n".join(lines[1:]).strip()
+          else:
+              changelog_body = changelog.strip()
+
+          if not changelog_body:
+              changelog_body = "Belum ada changelog."
+
+          changelog_section = f"""## Changelog
+
+{start_marker}
+{changelog_body}
+{end_marker}
+
+Full changelog: [CHANGELOG.md](./CHANGELOG.md)
+"""
+
+          if start_marker not in readme or end_marker not in readme:
+              readme = readme.rstrip() + "\n\n" + changelog_section + "\n"
+          else:
+              before = readme.split(start_marker)[0]
+              after = readme.split(end_marker)[1]
+              readme = before + start_marker + "\n" + changelog_body + "\n" + end_marker + after
+
+          readme_path.write_text(readme, encoding="utf-8")
+          PY
+
+      - name: Commit README update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "No README changes."
+          else
+            git add README.md
+            git commit -m "docs: sync changelog to readme [skip ci]"
+            git push
+          fi
