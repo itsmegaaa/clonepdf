@@ -1,8 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import useToolStore from './store/useToolStore';
 
 // Pages (lazy loaded)
 const Home = lazy(() => import('./pages/Home'));
@@ -43,9 +44,21 @@ function PageLoader() {
   );
 }
 
+function StoreResetter() {
+  const location = useLocation();
+  const reset = useToolStore((state) => state.reset);
+
+  useEffect(() => {
+    reset();
+  }, [location.pathname, reset]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <StoreResetter />
       <div className="min-h-screen flex flex-col bg-[#0f1117]">
         <Navbar />
         <main className="flex-1">
