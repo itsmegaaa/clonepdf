@@ -85,7 +85,7 @@ export default function OrganizePdf() {
       }
       setProgress(95);
       const blob = new Blob([await out.save()], { type: 'application/pdf' });
-      setResult({ blob, filename: 'organized.pdf' });
+      setResult({ blob, filename: files[0]? files[0].name : "organized.pdf" });
     } catch (err) {
       setError(err.message || 'Gagal mengorganisir PDF');
     }
@@ -95,7 +95,7 @@ export default function OrganizePdf() {
     if (!result) return;
     const a = document.createElement('a');
     a.href = result.url || URL.createObjectURL(result.blob);
-    a.download = result.filename || 'organized.pdf';
+    a.download = result.filename || (file ? file.name : "organized.pdf");
     a.click();
   };
 

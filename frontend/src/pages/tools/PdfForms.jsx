@@ -50,7 +50,7 @@ export default function PdfForms() {
       form.flatten();
       setProgress(90);
       const blob = new Blob([await doc.save()], { type: 'application/pdf' });
-      setResult({ blob, filename: 'filled_form.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal mengisi form');
     }

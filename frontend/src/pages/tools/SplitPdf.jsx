@@ -26,13 +26,13 @@ export default function SplitPdf() {
 
       if (parts.length === 1) {
         const blob = new Blob([parts[0]], { type: 'application/pdf' });
-        setResult({ blob, filename: 'split.pdf' });
+        setResult({ blob, filename: files[0].name });
       } else {
         const zip = new JSZip();
         parts.forEach((bytes, i) => zip.file(`part_${i + 1}.pdf`, bytes));
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         setProgress(95);
-        setResult({ blob: zipBlob, filename: 'split_pages.zip' });
+        setResult({ blob: zipBlob, filename: files[0].name.replace(/\.[^/.]+$/, "") + "_split.zip" });
       }
     } catch (err) {
       setError(err.message || 'Gagal memisahkan PDF');

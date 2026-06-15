@@ -88,7 +88,7 @@ export default function RotatePdf() {
       
       setProgress(95);
       const blob = new Blob([await doc.save()], { type: 'application/pdf' });
-      setResult({ blob, filename: 'rotated.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal merotasi PDF');
     }

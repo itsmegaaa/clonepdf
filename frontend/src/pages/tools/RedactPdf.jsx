@@ -54,7 +54,7 @@ export default function RedactPdf() {
       const bytes = await redactPdf(files[0], areas);
       setProgress(90);
       const blob = new Blob([bytes], { type: 'application/pdf' });
-      setResult({ blob, filename: 'redacted.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal meredaksi PDF');
     }

@@ -27,7 +27,7 @@ export default function WatermarkPdf() {
       const bytes = await watermarkPdf(files[0], { text, opacity, fontSize, color, rotation });
       setProgress(90);
       const blob = new Blob([bytes], { type: 'application/pdf' });
-      setResult({ blob, filename: 'watermarked.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal menambahkan watermark');
     }

@@ -18,7 +18,7 @@ export default function CropPdf() {
       const bytes = await cropPdf(files[0], margins, applyTo === 'all' ? 'all' : [0]);
       setProgress(90);
       const blob = new Blob([bytes], { type: 'application/pdf' });
-      setResult({ blob, filename: 'cropped.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal memotong PDF');
     }

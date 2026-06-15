@@ -69,7 +69,7 @@ export default function SignPdf() {
       });
       setProgress(90);
       const blob = new Blob([await doc.save()], { type: 'application/pdf' });
-      setResult({ blob, filename: 'signed.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal menandatangani PDF');
     }

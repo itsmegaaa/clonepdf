@@ -56,7 +56,7 @@ export default function ScanToPdf() {
       }
       setProgress(95);
       const blob = new Blob([await doc.save()], { type: 'application/pdf' });
-      setResult({ blob, filename: 'scan.pdf' });
+      setResult({ blob, filename: files[0].name.replace(/\.[^/.]+$/, "") + ".pdf" });
     } catch (err) {
       setError(err.message || 'Gagal membuat PDF dari scan');
     }

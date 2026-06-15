@@ -25,7 +25,7 @@ export default function PageNumbers() {
       const bytes = await addPageNumbers(files[0], { position, startAt, fontSize });
       setProgress(90);
       const blob = new Blob([bytes], { type: 'application/pdf' });
-      setResult({ blob, filename: 'numbered.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal menambahkan nomor halaman');
     }

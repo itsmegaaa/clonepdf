@@ -16,7 +16,7 @@ export default function UnlockPdf() {
       const res = await apiUnlock(files[0], password);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || 'unlocked.pdf' });
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal membuka kunci PDF. Password mungkin salah.');
     }

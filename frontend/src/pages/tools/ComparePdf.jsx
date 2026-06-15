@@ -19,7 +19,7 @@ export default function ComparePdf() {
       const res = await apiCompare(file1, file2);
       setProgress(90);
       const { fileId, filename } = res.data;
-      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || 'comparison.pdf' });
+      setResult({ url: `${import.meta.env.VITE_API_BASE_URL}/download/${fileId}`, filename: filename || files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal membandingkan PDF. Pastikan backend & Ghostscript/qpdf berjalan.');
     }

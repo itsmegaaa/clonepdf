@@ -63,7 +63,7 @@ export default function MergePdf() {
       const pdfBytes = await mergePdfs(files);
       setProgress(90);
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      setResult({ blob, filename: 'merged.pdf' });
+      setResult({ blob, filename: files[0].name });
     } catch (err) {
       setError(err.message || 'Gagal menggabungkan PDF');
     }

@@ -43,42 +43,48 @@ router.post('/convert/pdf-to-word', upload.single('file'), asyncHandler(async (r
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.docx`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'docx:MS Word 2007 XML');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'converted.docx' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.docx` });
 }));
 
 router.post('/convert/pdf-to-powerpoint', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pptx`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'pptx:Impress MS PowerPoint 2007 XML');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'converted.pptx' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.pptx` });
 }));
 
 router.post('/convert/pdf-to-excel', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.xlsx`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'xlsx:Calc MS Excel 2007 XML');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'converted.xlsx' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.xlsx` });
 }));
 
 router.post('/convert/word-to-pdf', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'pdf');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'output.pdf' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.pdf` });
 }));
 
 router.post('/convert/ppt-to-pdf', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'pdf');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'output.pdf' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.pdf` });
 }));
 
 router.post('/convert/excel-to-pdf', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   const finalFile = await libreOfficeConvert(req.file.path, OUTPUT_DIR, 'pdf');
   await fs.rename(finalFile, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'output.pdf' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(outFile), filename: `${baseName}.pdf` });
 }));
 
 // ── OPTIMIZE & PDF/A (Ghostscript) ─────────────────────────────────
@@ -86,13 +92,13 @@ router.post('/compress', upload.single('file'), asyncHandler(async (req, res) =>
   const level = req.body.level || 'medium';
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   await ghostscriptCompress(req.file.path, outFile, level);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'compressed.pdf' });
+  res.json({ success: true, fileId: path.basename(outFile), filename: req.file.originalname });
 }));
 
 router.post('/convert/pdf-to-pdfa', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   await ghostscriptPdfA(req.file.path, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'archive.pdf' });
+  res.json({ success: true, fileId: path.basename(outFile), filename: req.file.originalname });
 }));
 
 // ── SECURITY (QPDF) ────────────────────────────────────────────────
@@ -103,7 +109,7 @@ router.post('/protect', upload.single('file'), asyncHandler(async (req, res) => 
   
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   await qpdfProtect(req.file.path, outFile, password, ownerPassword || password, permsArray);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'protected.pdf' });
+  res.json({ success: true, fileId: path.basename(outFile), filename: req.file.originalname });
 }));
 
 router.post('/unlock', upload.single('file'), asyncHandler(async (req, res) => {
@@ -111,7 +117,7 @@ router.post('/unlock', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}.pdf`);
   try {
     await qpdfUnlock(req.file.path, outFile, password);
-    res.json({ success: true, fileId: path.basename(outFile), filename: 'unlocked.pdf' });
+    res.json({ success: true, fileId: path.basename(outFile), filename: req.file.originalname });
   } catch (err) {
     if (err.message && err.message.includes('invalid password')) {
       return res.status(401).json({ success: false, message: 'Password salah' });
@@ -126,7 +132,7 @@ router.post('/ocr', upload.single('file'), asyncHandler(async (req, res) => {
   const outFile = path.join(OUTPUT_DIR, `${uuidv4()}-ocr.pdf`);
   // Dalam real scenario, kita gabung Tesseract output ke PDF (sekarang kita copy untuk preview jalan)
   await fs.copy(req.file.path, outFile);
-  res.json({ success: true, fileId: path.basename(outFile), filename: 'ocr-result.pdf' });
+  res.json({ success: true, fileId: path.basename(outFile), filename: req.file.originalname });
 }));
 
 router.post('/convert/html-to-pdf', asyncHandler(async (req, res) => {
@@ -164,7 +170,8 @@ router.post('/convert/pdf-to-jpg', upload.single('file'), asyncHandler(async (re
   await new Promise(resolve => output.on('close', resolve));
   await fs.remove(tempDir);
   
-  res.json({ success: true, fileId: path.basename(zipFile), filename: 'pages.zip' });
+  const baseName = req.file.originalname.replace(/\.[^/.]+$/, "");
+  res.json({ success: true, fileId: path.basename(zipFile), filename: `${baseName}_images.zip` });
 }));
 
 // ── DOWNLOAD ROUTE ─────────────────────────────────────────────────
