@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs-extra');
-const archiver = require('archiver');
+const { ZipArchive } = require('archiver');
 const puppeteer = require('puppeteer');
 const tesseract = require('tesseract.js');
 const {
@@ -152,7 +152,7 @@ router.post('/convert/pdf-to-jpg', upload.single('file'), asyncHandler(async (re
   // Zip the files
   const zipFile = path.join(OUTPUT_DIR, `${uuidv4()}.zip`);
   const output = fs.createWriteStream(zipFile);
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = new ZipArchive({ zlib: { level: 9 } });
   
   archive.pipe(output);
   for (const jpg of jpgFiles) {
