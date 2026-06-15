@@ -8,7 +8,7 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.0.2] - 2026-06-15
 ### Fixed
-- **Backend:** Memperbaiki *error* CORS (Cross-Origin Resource Sharing) yang memblokir akses dari *frontend* saat berjalan di port selain `5173` (contoh: `5174`). `CORS_ORIGIN` di `.env` kini diizinkan untuk semua *origin* (`*`) selama masa pengembangan.
+- **Backend:** Memperbaiki *error* CORS secara permanen di `index.js` dengan mengubah `app.use(cors())` agar mengizinkan semua *origin* secara mutlak selama pengembangan. Ini mencegah *error* akibat *cache* variabel `CORS_ORIGIN` dari sistem.
 - **Frontend:** Memperbaiki bug di mana file yang diunggah di satu *tool* masih terbawa ketika pengguna berpindah ke halaman *tool* lain. *State* kini otomatis di-*reset* setiap kali rute URL berubah.
 - **Frontend:** Memperbaiki bug pada `ToolLayout.jsx` di mana daftar file kustom (seperti pada *Merge PDF* dan *Organize PDF*) tidak muncul/tersembunyi karena properti `children` gagal di-*render*.
 - **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, `HTML to PDF`, dan `Organize PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
