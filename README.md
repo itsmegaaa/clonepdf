@@ -1,4 +1,4 @@
-# iLovePDF Clone 📄🚀
+# PDF Editor 📄🚀
 
 Sebuah kloning *full-stack* open-source dari platform manipulasi PDF populer (iLovePDF). Proyek ini sepenuhnya beroperasi secara lokal, gratis 100%, tanpa *paywall*, tanpa *API* berbayar, dan yang paling penting: **Privasi Terjamin** (tidak ada data atau dokumen Anda yang dikirim ke *cloud*).
 
