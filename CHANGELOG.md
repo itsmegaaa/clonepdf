@@ -10,7 +10,10 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - **Frontend:** Memperbaiki bug di mana file yang diunggah di satu *tool* masih terbawa ketika pengguna berpindah ke halaman *tool* lain. *State* kini otomatis di-*reset* setiap kali rute URL berubah.
 - **Frontend:** Memperbaiki bug pada `ToolLayout.jsx` di mana daftar file kustom (seperti pada *Merge PDF* dan *Organize PDF*) tidak muncul/tersembunyi karena properti `children` gagal di-*render*.
-- **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, dan `HTML to PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
+- **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, `HTML to PDF`, dan `Organize PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
+
+### Changed
+- **Frontend (Rotate PDF):** Mendesain ulang total UI halaman **Rotate PDF**. Pengguna kini bisa melihat *thumbnail* dari setiap halaman PDF dan dapat memutarnya secara individual ke kiri/kanan, atau memutar seluruh halaman sekaligus (mirip dengan UX Organize PDF).
 
 ## [1.0.1] - 2026-06-15
 ### Fixed

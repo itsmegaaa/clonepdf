@@ -3,10 +3,11 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, useSortable, rectSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { PDFDocument, degrees } from 'pdf-lib';
-import { GripVertical, Trash2, RotateCw } from 'lucide-react';
+import { GripVertical, Trash2, RotateCw, CheckCircle, Download, RefreshCw } from 'lucide-react';
 import useToolStore from '../../store/useToolStore';
 import PdfPreview from '../../components/PdfPreview';
 import DropZone from '../../components/DropZone';
+import ProgressBar from '../../components/ProgressBar';
 import { Link } from 'react-router-dom';
 
 function SortablePage({ page, onDelete, onRotate }) {
@@ -37,7 +38,7 @@ function SortablePage({ page, onDelete, onRotate }) {
 }
 
 export default function OrganizePdf() {
-  const { startProcess, setProgress, setResult, setError, reset } = useToolStore();
+  const { startProcess, setProgress, setResult, setError, reset, isProcessing, progress, result } = useToolStore();
   const [pages, setPages] = useState([]);
   const [file, setFile] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -89,6 +90,48 @@ export default function OrganizePdf() {
       setError(err.message || 'Gagal mengorganisir PDF');
     }
   };
+
+  const handleDownload = () => {
+    if (!result) return;
+    const a = document.createElement('a');
+    a.href = result.url || URL.createObjectURL(result.blob);
+    a.download = result.filename || 'organized.pdf';
+    a.click();
+  };
+
+  if (result) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center py-16 px-4 text-center">
+        <div className="w-20 h-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mb-6 animate-bounce-once">
+          <CheckCircle className="w-10 h-10 text-green-400" />
+        </div>
+        <h2 className="text-2xl font-bold text-white mb-2">Selesai! 🎉</h2>
+        <p className="text-[#8b90b0] mb-8">File siap diunduh.</p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button onClick={handleDownload} className="flex items-center gap-2 px-6 py-3 bg-[#e2001a] hover:bg-[#b8001a] text-white font-semibold rounded-xl transition-colors shadow-lg shadow-red-900/30">
+            <Download className="w-4 h-4" /> Unduh {result.filename || 'File'}
+          </button>
+          <button onClick={() => { reset(); setFile(null); setPages([]); }} className="flex items-center gap-2 px-6 py-3 bg-[#22263a] hover:bg-[#2d3150] text-white font-semibold rounded-xl transition-colors">
+            <RefreshCw className="w-4 h-4" /> Proses File Lain
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (isProcessing) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center py-16 px-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 border-4 border-[#e2001a] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-white font-semibold">Sedang memproses…</p>
+          </div>
+          <ProgressBar progress={progress} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
