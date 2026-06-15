@@ -6,6 +6,10 @@ Format didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-06-15
+### Fixed
+- **Frontend:** Menambahkan layar *Loading* (Sedang memproses) dan *Result* (Selesai/Download) pada tool yang memiliki *custom* UI: `JPG to PDF`, `Compare PDF`, dan `HTML to PDF`. Sebelumnya halaman ini terlihat *stuck* setelah tombol konversi ditekan.
+
 ## [1.0.1] - 2026-06-15
 ### Fixed
 - **Frontend:** Memperbaiki *blank white screen* yang disebabkan oleh *missing export* icon `Github` dari `lucide-react` di `Footer.jsx` yang membuat *build* Vite *crash*.
