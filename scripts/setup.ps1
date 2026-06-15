@@ -8,7 +8,7 @@ Write-Host "Memeriksa instalasi Chocolatey..." -ForegroundColor Cyan
 if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Host "Chocolatey belum terinstal. Sedang menginstal..." -ForegroundColor Yellow
     Set-ExecutionPolicy Bypass -Scope Process -Force
-    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 } else {
     Write-Host "Chocolatey sudah terinstal." -ForegroundColor Green
 }
