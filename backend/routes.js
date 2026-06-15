@@ -20,13 +20,13 @@ const router = express.Router();
 // ── Setup Multer ───────────────────────────────────────────────────
 const upload = multer({
   storage: multer.diskStorage({
-    destination: process.env.UPLOAD_DIR || './tmp/uploads',
+    destination: path.resolve(process.env.UPLOAD_DIR || './tmp/uploads'),
     filename: (req, file, cb) => cb(null, `${uuidv4()}${path.extname(file.originalname)}`)
   }),
   limits: { fileSize: parseInt(process.env.MAX_FILE_SIZE_MB || '50') * 1024 * 1024 }
 });
 
-const OUTPUT_DIR = process.env.OUTPUT_DIR || './tmp/outputs';
+const OUTPUT_DIR = path.resolve(process.env.OUTPUT_DIR || './tmp/outputs');
 
 // Helper Wrapper (Handles try/catch & cleanup on fail)
 const asyncHandler = (fn) => async (req, res, next) => {
